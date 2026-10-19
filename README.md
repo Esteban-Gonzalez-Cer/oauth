@@ -1,8 +1,8 @@
-# Práctica OAuth 2.0: iniciar sesión con GitHub
+# Práctica OAuth 2.0: iniciar sesión con Twitch
 
-Página en **Next.js** con un botón **"Continuar con GitHub"** usando OAuth 2.0 a través de [Auth.js](https://authjs.dev). Después de iniciar sesión muestra el nombre, correo y foto que la app recibió, sin conocer nunca la contraseña.
+Página en **Next.js** con un botón **"Continuar con Twitch"** usando OAuth 2.0 a través de [Auth.js](https://authjs.dev). Después de iniciar sesión muestra los datos del perfil que Twitch comparte con la app, sin conocer nunca la contraseña.
 
-La práctica para el grupo está en **[PRACTICA.md](PRACTICA.md)**: agregar un segundo botón (Twitch u otro proveedor).
+La guía de la práctica está en **[PRACTICA.md](PRACTICA.md)**.
 
 ## Archivos importantes
 
@@ -13,15 +13,12 @@ app/api/auth/[...nextauth]/route.ts  Rutas de OAuth (login, callback, logout)
 .env.local                           Tus credenciales (NO se sube a GitHub)
 ```
 
-## 1. Credenciales de GitHub
+## 1. Credenciales de Twitch
 
-1. Abre [github.com/settings/applications/new](https://github.com/settings/applications/new).
-2. Llena:
-   - **Application name:** `Práctica OAuth`
-   - **Homepage URL:** `http://localhost:3000`
-   - **Authorization callback URL:** `http://localhost:3000/api/auth/callback/github`
-3. Pulsa **Register application**.
-4. Copia el **Client ID**. Pulsa **Generate a new client secret** y copia el secreto en ese momento (solo se muestra una vez).
+1. Activa la verificación en dos pasos en tu cuenta de Twitch si aún no lo has hecho.
+2. Abre [dev.twitch.tv/console/apps](https://dev.twitch.tv/console/apps) y registra una aplicación de tipo **Website Integration** con cliente **Confidencial**.
+3. Registra `http://localhost:3000/api/auth/callback/twitch` como URL de OAuth de redireccionamiento.
+4. Copia el **Client ID** y genera un **Client Secret**.
 
 ## 2. Correr en tu computadora
 
@@ -34,11 +31,11 @@ npx auth secret
 open -e .env.local
 ```
 
-`npx auth secret` agrega `AUTH_SECRET` a `.env.local` automáticamente. En el archivo que se abre, pega tus credenciales y guarda:
+`npx auth secret` agrega `AUTH_SECRET` a `.env.local` automáticamente. En el archivo que se abre, pega las credenciales de Twitch y guarda:
 
 ```
-AUTH_GITHUB_ID=tu-client-id
-AUTH_GITHUB_SECRET=tu-client-secret
+AUTH_TWITCH_ID=tu-client-id
+AUTH_TWITCH_SECRET=tu-client-secret
 ```
 
 ```bash
@@ -65,9 +62,9 @@ git push -u origin main
 ## 4. Desplegar en Vercel
 
 1. En [vercel.com](https://vercel.com) entra con GitHub → **Add New → Project** → importa el repositorio.
-2. En **Environment Variables** agrega `AUTH_SECRET`, `AUTH_GITHUB_ID` y `AUTH_GITHUB_SECRET` (copia los valores de tu `.env.local`).
+2. En **Environment Variables** agrega `AUTH_SECRET`, `AUTH_TWITCH_ID` y `AUTH_TWITCH_SECRET` (copia los valores de tu `.env.local`).
 3. **Deploy.** Obtendrás una URL como `https://oauth-demo-xxxx.vercel.app`.
-4. Una OAuth App de GitHub acepta solo una callback URL. Crea una segunda OAuth App para producción con Homepage `https://oauth-demo-xxxx.vercel.app` y callback `https://oauth-demo-xxxx.vercel.app/api/auth/callback/github`, y usa sus credenciales en Vercel.
+4. Agrega el dominio de producción en la configuración de la aplicación de Twitch y registra `https://oauth-demo-xxxx.vercel.app/api/auth/callback/twitch` como URL de redireccionamiento. Usa las credenciales correspondientes en Vercel.
 
 > Usa el dominio de producción de Vercel; las URLs de *preview* cambian y el proveedor las rechazará.
 

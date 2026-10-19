@@ -1,19 +1,14 @@
 import NextAuth from "next-auth";
 import type { Provider } from "next-auth/providers";
-import GitHub from "next-auth/providers/github";
-// PRÁCTICA: importa aquí el proveedor que vas a agregar, por ejemplo:
-// import Twitch from "next-auth/providers/twitch";
+import Twitch from "next-auth/providers/twitch";
 
 /**
  * Lista de proveedores OAuth con los que se puede iniciar sesión.
  * Cada uno lee sus credenciales de variables de entorno:
- *   GitHub -> AUTH_GITHUB_ID y AUTH_GITHUB_SECRET
  *   Twitch -> AUTH_TWITCH_ID y AUTH_TWITCH_SECRET
  */
 const providers: Provider[] = [
-  GitHub,
-  // PRÁCTICA: agrega aquí tu proveedor, por ejemplo:
-  // Twitch,
+  Twitch,
 ];
 
 /** Lista simple (id y nombre) para dibujar un botón por cada proveedor en la página. */

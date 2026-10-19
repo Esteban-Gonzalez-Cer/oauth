@@ -96,7 +96,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ e
           })}
         </div>
         <p className="muted small hint">
-          ¿Solo ves un botón? La práctica es agregar otro botón (Twitch, GitHub, Discord…) en <code>auth.ts</code>.
+          Configura tus credenciales de Twitch en <code>.env.local</code> para iniciar sesión.
         </p>
       </div>
     </section>

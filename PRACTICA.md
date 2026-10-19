@@ -1,9 +1,9 @@
-# Práctica: agrega tu propio botón de inicio de sesión
+# Práctica: inicio de sesión con Twitch
 
-La página ya permite **iniciar sesión con GitHub** usando OAuth 2.0. Tu tarea es agregar **otro proveedor**: Twitch, Discord o Google.
+La página permite **iniciar sesión con Twitch** usando OAuth 2.0. Tu tarea es registrar la aplicación, configurar sus credenciales y observar el flujo completo de autenticación.
 
 **Tiempo estimado:** 20–30 minutos.
-**Necesitas:** Node.js 20+, el proyecto descargado y una cuenta del proveedor que elijas.
+**Necesitas:** Node.js 20+, el proyecto descargado y una cuenta de Twitch.
 
 ## Paso 1. Registra tu app en el proveedor
 
@@ -16,39 +16,21 @@ http://localhost:3000/api/auth/callback/<proveedor>
 | Proveedor | Dónde registrar la app | URL de redireccionamiento |
 | --- | --- | --- |
 | **Twitch** | [dev.twitch.tv/console/apps](https://dev.twitch.tv/console/apps) → *Registra tu aplicación* (categoría *Website Integration*, cliente *Confidencial*) | `http://localhost:3000/api/auth/callback/twitch` |
-| Discord | [discord.com/developers/applications](https://discord.com/developers/applications) → *New Application* → *OAuth2* | `http://localhost:3000/api/auth/callback/discord` |
 
 > **Twitch** pide tener activada la **verificación en dos pasos** en tu cuenta antes de registrar apps. Después de crearla, entra a *Administrar* y pulsa *Nuevo secreto* para obtener el Client Secret.
 
 ## Paso 2. Agrega las credenciales
 
-En el archivo `.env.local` agrega (ejemplo con Twitch):
+En el archivo `.env.local` agrega:
 
 ```
 AUTH_TWITCH_ID=tu-client-id
 AUTH_TWITCH_SECRET=tu-client-secret
 ```
 
-Para Discord serían `AUTH_DISCORD_ID` y `AUTH_DISCORD_SECRET`.
+## Paso 3. Prueba
 
-## Paso 3. Agrega el proveedor en `auth.ts`
-
-Quita las barras `//` de las dos líneas marcadas con `PRÁCTICA`:
-
-```ts
-import Twitch from "next-auth/providers/twitch";
-
-const providers: Provider[] = [
-  GitHub,
-  Twitch,
-];
-```
-
-Para Discord: `import Discord from "next-auth/providers/discord";` y agrega `Discord` a la lista.
-
-## Paso 4. Prueba
-
-Detén el servidor con **Ctrl + C**, corre `npm run dev` y abre [http://localhost:3000](http://localhost:3000). Debe aparecer el botón **"Continuar con Twitch"**. Inicia sesión y revisa los datos que recibió la app.
+Corre `npm run dev` y abre [http://localhost:3000](http://localhost:3000). Debe aparecer el botón **"Continuar con Twitch"**. Inicia sesión y revisa los datos que recibió la app.
 
 ## Preguntas para entregar
 

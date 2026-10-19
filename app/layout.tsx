@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Práctica OAuth 2.0",
-  description: "Inicio de sesión con Google y otros proveedores usando OAuth 2.0.",
+  description: "Inicio de sesión con Twitch usando OAuth 2.0.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
